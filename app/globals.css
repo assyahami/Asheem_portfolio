@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Folio Baseline — black & white with warm/malt accent */
+    --background: 60 14% 99%;       /* paper #FDFDFB */
+    --foreground: 0 0% 7%;          /* ink #111111 */
+    --card: 0 0% 100%;              /* surface-raised #FFFFFF */
+    --card-foreground: 0 0% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+    --primary: 0 0% 7%;             /* ink — primary actions */
+    --primary-foreground: 60 14% 99%;
+    --secondary: 60 5% 96%;         /* surface #F4F4F0 */
+    --secondary-foreground: 0 0% 7%;
+    --muted: 60 5% 96%;
+    --muted-foreground: 0 0% 34%;   /* ink-soft #565656 */
+    --accent: 328 100% 39%;         /* signal #C6006D */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 350 100% 35%;    /* danger #B00020 */
+    --destructive-foreground: 0 0% 100%;
+    --border: 60 5% 89%;            /* hairline #E4E4DF */
+    --input: 60 5% 89%;
+    --ring: 328 100% 39%;           /* focus-ring = signal */
+    --radius: 0rem;
+
+    /* Folio palette as direct CSS vars */
+    --paper: #FDFDFB;
+    --ink: #111111;
+    --ink-soft: #565656;
+    --hairline: #E4E4DF;
+    --surface: #F4F4F0;
+    --surface-raised: #FFFFFF;
+    --signal: #C6006D;
+    --signal-ink: #8F0050;
+    --danger: #B00020;
+
+    /* Malt / warm accent tones */
+    --malt: #C8A97E;
+    --malt-light: #E8D5B7;
+    --malt-dark: #8B6B3D;
+    --malt-glow: rgba(200, 169, 126, 0.15);
+
+    /* Typography */
+    --font-sans: 'Libre Franklin', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Libre Franklin', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'Azeret Mono', ui-monospace, monospace;
+
+    /* Scrollbar */
+    --scrollbar-thumb: hsl(var(--muted-foreground) / 0.3);
+    --scrollbar-track: transparent;
+
+    /* Chart colors */
+    --chart-1: 0 0% 7%;
+    --chart-2: 0 0% 34%;
+    --chart-3: 328 100% 39%;
+    --chart-4: 60 5% 89%;
+    --chart-5: 35 45% 62%;
+  }
+
+  .dark {
+    --background: 0 0% 7%;
+    --foreground: 60 14% 99%;
+    --card: 0 0% 10%;
+    --card-foreground: 60 14% 99%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 60 14% 99%;
+    --primary: 60 14% 99%;
+    --primary-foreground: 0 0% 7%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 60 14% 99%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 328 100% 39%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 350 100% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 328 100% 39%;
+
+    --scrollbar-thumb: hsl(var(--muted-foreground) / 0.4);
+    --scrollbar-track: transparent;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    scrollbar-width: thin;
+  }
+
+  @supports not (scrollbar-color: auto) {
+    *::-webkit-scrollbar { width: 8px; height: 8px; }
+    *::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-thumb);
+      border-radius: 9999px;
+    }
+    *::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+/* Portfolio-specific utilities */
+@layer utilities {
+  .font-mono-folio {
+    font-family: var(--font-mono);
+  }
+
+  .text-malt {
+    color: var(--malt);
+  }
+
+  .bg-malt {
+    background-color: var(--malt);
+  }
+
+  .border-malt {
+    border-color: var(--malt);
+  }
+
+  .text-signal {
+    color: var(--signal);
+  }
+
+  .bg-signal {
+    background-color: var(--signal);
+  }
+
+  .text-ink-soft {
+    color: var(--ink-soft);
+  }
+
+  .bg-hairline {
+    background-color: var(--hairline);
+  }
+
+  /* Hairline rule */
+  .hairline-x {
+    border-top: 1px solid var(--hairline);
+  }
+
+  .hairline-y {
+    border-left: 1px solid var(--hairline);
+  }
+
+  /* Registration mark bullet */
+  .reg-mark::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--malt);
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  /* Malt glow */
+  .malt-glow {
+    box-shadow: 0 0 40px var(--malt-glow), 0 0 80px var(--malt-glow);
+  }
+
+  /* Section index label */
+  .section-index {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--malt);
+  }
+}
+
+/* Particle canvas */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Smooth scroll sections */
+.portfolio-section {
+  position: relative;
+  z-index: 1;
+}
+
+/* Nav dot active state */
+.nav-dot.active {
+  background-color: var(--malt);
+  transform: scale(1.4);
+}
+
+/* Map pin pulse */
+@keyframes pin-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+}
+
+@keyframes pin-drop {
+  0% { transform: translateY(-20px) scale(0); opacity: 0; }
+  60% { transform: translateY(4px) scale(1.1); opacity: 1; }
+  80% { transform: translateY(-2px) scale(0.95); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0.5); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+/* Timeline line draw */
+@keyframes line-draw {
+  from { height: 0; }
+  to { height: 100%; }
+}
+
+/* Fade up */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cursor blink */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* Three.js canvas utility */
+.three-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Camera flash overlay animation */
+@keyframes camera-flash {
+  0% { opacity: 0; }
+  10% { opacity: 0.15; }
+  30% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Map pin ripple animation */
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
